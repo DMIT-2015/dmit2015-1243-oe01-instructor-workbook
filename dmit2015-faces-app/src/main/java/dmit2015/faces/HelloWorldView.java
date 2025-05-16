@@ -1,15 +1,12 @@
 package dmit2015.faces;
 
-import jakarta.inject.Inject;
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
-
-import jakarta.faces.view.ViewScoped;
-import jakarta.inject.Named;
-import jakarta.annotation.PostConstruct;
 
 import java.io.Serializable;
 
@@ -18,7 +15,6 @@ import java.io.Serializable;
 // class must implement Serializable
 public class HelloWorldView implements Serializable {
 
-    // Declare read/write properties (field + getter + setter) for each form field
     @Getter @Setter
     @NotBlank(message = "Please enter a username value.")
     private String username;
@@ -48,7 +44,7 @@ public class HelloWorldView implements Serializable {
      * @param ex The Exception to handle.
      */
     protected void handleException(Exception ex) {
-        StringBuilder details = new StringBuilder();
+        var details = new StringBuilder();
         Throwable causes = ex;
         while (causes.getCause() != null) {
             details.append(ex.getMessage());
