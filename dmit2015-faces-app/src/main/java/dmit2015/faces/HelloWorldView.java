@@ -3,7 +3,6 @@ package dmit2015.faces;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import org.omnifaces.util.Messages;
@@ -16,7 +15,7 @@ import java.io.Serializable;
 public class HelloWorldView implements Serializable {
 
     @Getter @Setter
-    @NotBlank(message = "Please enter a username value.")
+//    @NotBlank(message = "Please enter a username value.")
     private String username;
 
     @PostConstruct // This method is executed after DI is completed (fields with @Inject now have values)
