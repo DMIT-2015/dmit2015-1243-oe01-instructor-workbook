@@ -1,0 +1,73 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:faces="jakarta.faces"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html"
+        xmlns:pt="jakarta.faces.passthrough"
+        xmlns:cc="jakarta.faces.composite"
+        xmlns:c="jakarta.tags.core"
+        xmlns:fn="jakarta.tags.functions"
+        xmlns:o="http://omnifaces.org/ui"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="primefaces"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+    <ui:param name="title" value="DMIT2015 Account Sign Up"/>
+
+    <ui:define name="maincontent">
+
+        <h1>DMIT2015 Account Sign Up</h1>
+
+        <!--Display all messages in FacesContext -->
+        <p:messages id="messages">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h:form prependId="false">
+            <p:focus context="formPanel"/>
+
+            <p:panel id="formPanel" header="Create your DMIT2015 Account">
+                <p> Already have an DMIT2015 Account?
+                    <p:link value="Sign In" outcome="/signIn" />
+                </p>
+
+                <div class="ui-fluid">
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Username</p:outputLabel>
+                        <p:inputText id="username" value="#{currentSignUpView.username}"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Password</p:outputLabel>
+                        <p:password id="password" value="#{currentSignUpView.password}"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Confirm password</p:outputLabel>
+                        <p:password id="confirmedPassword" value="#{currentSignUpView.confirmedPassword}"/>
+                    </div>
+
+                    <div class="formgroup-inline">
+                        <div class="field">
+                            <p:commandButton value="Create an Account"
+                                             action="#{currentSignUpView.onSignUp()}"
+                                             update=":messages :growl @form"
+                            >
+                            </p:commandButton>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </p:panel>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

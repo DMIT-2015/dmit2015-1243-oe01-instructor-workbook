@@ -1,0 +1,60 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:h="jakarta.faces.html"
+        xmlns:p="primefaces"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+    <ui:param name="title" value="DMIT2015 Sign In"/>
+
+    <ui:define name="maincontent">
+
+        <h1>DMIT2015 Sign In</h1>
+
+        <!--Display all messages in FacesContext -->
+        <p:messages id="messages">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h:form prependId="false">
+            <p:focus context="formPanel"/>
+
+            <p:panel id="formPanel" header="Sign In">
+                <p> Do not have an DMIT2015 Account?
+                    <p:link value="Create Your DMIT2015 Account" outcome="/signUp" />
+                </p>
+
+                <div class="ui-fluid">
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Username</p:outputLabel>
+                        <p:inputText id="username" value="#{currentSignInView.username}"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="@next" >Password</p:outputLabel>
+                        <p:password id="password" value="#{currentSignInView.password}"/>
+                    </div>
+
+                    <div class="formgroup-inline">
+                        <div class="field">
+                            <p:commandButton value="Sign In"
+                                             icon="pi pi-sign-in"
+                                             action="#{currentSignInView.onLogin()}"
+                                             update=":messages :growl @form"
+                            >
+                            </p:commandButton>
+                        </div>
+                    </div>
+
+                </div>
+
+            </p:panel>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>
