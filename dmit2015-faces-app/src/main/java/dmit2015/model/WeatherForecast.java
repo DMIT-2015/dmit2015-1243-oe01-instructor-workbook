@@ -10,6 +10,8 @@ import java.time.LocalDate;
  */
 public class WeatherForecast {
 
+    private String id;
+
     private LocalDate date;
 
     private int temperatureC;
@@ -44,5 +46,11 @@ public class WeatherForecast {
         this.summary = summary;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }
