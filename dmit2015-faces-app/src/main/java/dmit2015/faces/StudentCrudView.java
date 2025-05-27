@@ -25,7 +25,8 @@ import java.util.Locale;
 public class StudentCrudView implements Serializable {
 
     @Inject
-    @Named("memoryStudentService")
+//    @Named("memoryStudentService")
+    @Named("firebaseHttpClientStudentService")
     private StudentService studentService;
 
     /**
