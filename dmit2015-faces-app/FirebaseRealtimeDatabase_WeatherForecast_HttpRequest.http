@@ -1,0 +1,44 @@
+// Firebase Realtime Database stores JSON data in a JSON Tree structure
+
+### Push new JSON data to the path
+POST https://dmit2015-1243-swu-default-rtdb.firebaseio.com/WeatherForecast.json
+Content-Type: application/json
+
+{
+  "date": "2025-05-29",
+  "temperatureC": "25",
+  "summary": "Sunny and Hot"
+}
+
+### Push new JSON data to the path
+POST https://dmit2015-1243-swu-default-rtdb.firebaseio.com/WeatherForecast.json
+Content-Type: application/json
+
+{
+  "date": "2025-05-30",
+  "temperatureC": "20",
+  "summary": "Sunny"
+}
+
+### Read JSON data by path
+GET https://dmit2015-1243-swu-default-rtdb.firebaseio.com/WeatherForecast.json
+
+### Read JSON data by path and primary key value
+@primaryKeyValue = -OROp92fs7oCw8chyKY9
+GET https://dmit2015-1243-swu-default-rtdb.firebaseio.com/WeatherForecast/{{primaryKeyValue}}.json
+
+### Write JSON data - will replace all properties with the properties in the request body - if you miss a property it will be removed
+PUT https://dmit2015-1243-swu-default-rtdb.firebaseio.com/WeatherForecast/{{primaryKeyValue}}.json
+Content-Type: application/json
+
+{
+  "date": "2025-05-29",
+  "temperatureC": "28",
+  "summary": "Very hot and dry"
+}
+
+
+### Remove JSON data - use this if you want to delete data
+@deletePrimaryKeyValue = -OROpCBfig2RUpnxmoii
+DELETE https://dmit2015-1243-swu-default-rtdb.firebaseio.com/WeatherForecast/{{deletePrimaryKeyValue}}.json
+
