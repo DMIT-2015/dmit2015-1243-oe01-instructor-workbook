@@ -1,0 +1,202 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:faces="jakarta.faces"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html"
+        xmlns:pt="jakarta.faces.passthrough"
+        xmlns:cc="jakarta.faces.composite"
+        xmlns:c="jakarta.tags.core"
+        xmlns:fn="jakarta.tags.functions"
+        xmlns:o="http://omnifaces.org/ui"
+        xmlns:of="http://omnifaces.org/functions"
+        xmlns:p="primefaces"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+    <ui:param name="title" value="LibraryAccount - CRUD"/>
+
+    <ui:param name="internalstyles"
+              value=".LibraryAccounts-table-header { display: flex; align-items:center; justify-content: space-between; flex-wrap: wrap; }"/>
+
+    <ui:define name="maincontent">
+
+        <div class="card">
+            <h:form id="form">
+                <p:growl id="growl" showDetail="true">
+                    <p:autoUpdate/>
+                </p:growl>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton id="newButton"
+                                         value="New"
+                                         icon="pi pi-plus"
+                                         actionListener="#{currentLibraryAccountCrudView.onOpenNew}"
+                                         update=":dialogs:manage-LibraryAccount-content"
+                                         oncomplete="PF('manageLibraryAccountDialog').show()"
+                                         styleClass="ui-button-success"
+                                         style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-LibraryAccount-content"/>
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="dt-LibraryAccounts" widgetVar="dtLibraryAccounts"
+                             value="#{currentLibraryAccountCrudView.libraryAccounts}"
+                             var="currentItem"
+                             reflow="true"
+                             selection="#{currentLibraryAccountCrudView.selectedLibraryAccount}"
+                             rowKey="#{currentItem.id}"
+                             paginator="true" rows="10"
+                             paginatorPosition="bottom">
+
+                    <f:facet name="header">
+                        <div class="LibraryAccounts-table-header">
+                            <span style="font-weight: bold">LibraryAccounts</span>
+                            <span class="filter-container ui-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <p:inputText id="globalFilter" onkeyup="PF('dtLibraryAccounts').filter()"
+                                             placeholder="Search"/>
+                            </span>
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="First Name" filterBy="#{currentItem.firstName}">
+                        <h:outputText value="#{currentItem.firstName}"/>
+                    </p:column>
+                    <p:column headerText="Last Name" filterBy="#{currentItem.lastName}">
+                        <h:outputText value="#{currentItem.lastName}"/>
+                    </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{currentItem.email}"/>
+                    </p:column>
+                    <p:column headerText="Date of Birth">
+                        <h:outputText value="#{currentItem.dateOfBirth}">
+                            <f:convertDateTime type="localDate" pattern="yyyy-MM-dd" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column exportable="false" ariaHeaderText="Actions">
+                        <p:commandButton icon="pi pi-pencil"
+                                         update=":dialogs:manage-LibraryAccount-content"
+                                         oncomplete="PF('manageLibraryAccountDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success"
+                                         process="@this">
+                            <f:setPropertyActionListener value="#{currentItem}"
+                                                         target="#{currentLibraryAccountCrudView.selectedLibraryAccount}"/>
+                            <f:setPropertyActionListener value="#{currentItem.id}"
+                                                         target="#{currentLibraryAccountCrudView.selectedId}"/>
+                            <p:resetInput target=":dialogs:manage-LibraryAccount-content"/>
+                        </p:commandButton>
+                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                         process="@this"
+                                         oncomplete="PF('deleteLibraryAccountDialog').show()">
+                            <f:setPropertyActionListener value="#{currentItem}"
+                                                         target="#{currentLibraryAccountCrudView.selectedLibraryAccount}"/>
+                            <f:setPropertyActionListener value="#{currentItem.id}"
+                                                         target="#{currentLibraryAccountCrudView.selectedId}"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="LibraryAccount Details" showEffect="fade" modal="true"
+                          widgetVar="manageLibraryAccountDialog"
+                          responsive="true">
+
+                    <p:messages id="messages">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <p:outputPanel id="manage-LibraryAccount-content" class="ui-fluid">
+                        <p:outputPanel rendered="#{not empty currentLibraryAccountCrudView.selectedLibraryAccount}">
+                            <!-- TODO: Add input field for each editable property of the entity -->
+                            <div class="field">
+                                <p:outputLabel for="@next">First Name</p:outputLabel>
+                                <p:inputText
+                                        id="firstName"
+                                        value="#{currentLibraryAccountCrudView.selectedLibraryAccount.firstName}">
+                                </p:inputText>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Last Name</p:outputLabel>
+                                <p:inputText
+                                        id="lastName"
+                                        value="#{currentLibraryAccountCrudView.selectedLibraryAccount.lastName}">
+                                </p:inputText>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Email</p:outputLabel>
+                                <p:inputText
+                                        id="email"
+                                        value="#{currentLibraryAccountCrudView.selectedLibraryAccount.email}">
+                                </p:inputText>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Date of Birth</p:outputLabel>
+                                <p:datePicker
+                                        id="firstName"
+                                        pattern="yyyy-MM-dd"
+                                        value="#{currentLibraryAccountCrudView.selectedLibraryAccount.dateOfBirth}">
+                                </p:datePicker>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="@next">Password</p:outputLabel>
+                                <p:password
+                                        id="password"
+                                        value="#{currentLibraryAccountCrudView.selectedLibraryAccount.password}">
+                                </p:password>
+                            </div>
+
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton id="saveButton"
+                                         value="Save"
+                                         icon="pi pi-check"
+                                         actionListener="#{currentLibraryAccountCrudView.onSave}"
+                                         update="manage-LibraryAccount-content"
+                                         process="manage-LibraryAccount-content @this"/>
+
+                        <p:commandButton id="generateDataButton"
+                                         value="Generate Data"
+                                         icon="pi pi-calculator"
+                                         actionListener="#{currentLibraryAccountCrudView.onGenerateData}"
+                                         update="manage-LibraryAccount-content"
+                                         process="@this"/>
+
+                        <p:commandButton id="cancelButton"
+                                         value="Cancel"
+                                         icon="pi pi-times"
+                                         onclick="PF('manageLibraryAccountDialog').hide()"
+                                         class="ui-button-secondary"
+                                         type="button"/>
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteLibraryAccountDialog" showEffect="fade" width="300"
+                                 message="Delete the LibraryAccount?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check"
+                                     actionListener="#{currentLibraryAccountCrudView.onDelete}"
+                                     process="@this"
+                                     oncomplete="PF('deleteLibraryAccountDialog').hide()"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteLibraryAccountDialog').hide()"/>
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times"/>
+                </p:confirmDialog>
+            </h:form>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>
