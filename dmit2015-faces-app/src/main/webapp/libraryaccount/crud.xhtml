@@ -113,7 +113,7 @@
 
                     <p:outputPanel id="manage-LibraryAccount-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty currentLibraryAccountCrudView.selectedLibraryAccount}">
-                            <!-- TODO: Add input field for each editable property of the entity -->
+
                             <div class="field">
                                 <p:outputLabel for="@next">First Name</p:outputLabel>
                                 <p:inputText
@@ -138,7 +138,7 @@
                             <div class="field">
                                 <p:outputLabel for="@next">Date of Birth</p:outputLabel>
                                 <p:datePicker
-                                        id="firstName"
+                                        id="dateOfBirth"
                                         pattern="yyyy-MM-dd"
                                         value="#{currentLibraryAccountCrudView.selectedLibraryAccount.dateOfBirth}">
                                 </p:datePicker>
