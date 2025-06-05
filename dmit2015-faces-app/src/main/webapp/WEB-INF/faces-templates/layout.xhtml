@@ -58,8 +58,8 @@
                     <p:menuitem value="WeatherForecast"
                                 url="#{request.contextPath}/demo/weather.xhtml"/>
 
-                    <p:menuitem value="Sign In"
-                                url="#{request.contextPath}/signIn.xhtml" />
+<!--                    <p:menuitem value="Sign In"-->
+<!--                                url="#{request.contextPath}/signIn.xhtml" />-->
 
                     <!--                <p:submenu label="Students" icon="pi pi-file">-->
                     <!--                    <p:menuitem value="List" icon="pi pi-list"-->
@@ -68,6 +68,16 @@
                     <!--                                url="#{request.contextPath}/students/create.xhtml"/>-->
                     <!--                </p:submenu>-->
 
+                    <c:if test="${empty firebaseAuthSignInSession.username}">
+                        <p:menuitem
+                                value="Login"
+                                action="/firebaseAuthSignIn" />
+                    </c:if>
+                    <c:if test="${not empty firebaseAuthSignInSession.username}">
+                        <p:menuitem
+                                value="Logout #{firebaseAuthSignInSession.username}"
+                                action="#{facesLogout.submit}" />
+                    </c:if>
                 </p:menubar>
             </h:form>
         </div>
