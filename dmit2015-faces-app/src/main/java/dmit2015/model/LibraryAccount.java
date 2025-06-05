@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class LibraryAccount {
 
     @NotBlank(message = "First name is required.")
-    @Size(message = "First name must contain 2 or more characters.")
+    @Size(min=2, message = "First name must contain 2 or more characters.")
     private String firstName;
 
-    @Size(message = "Last name must contain 2 or more characters.")
+    @Size(min=2, message = "Last name must contain 2 or more characters.")
     @NotBlank(message = "Last name is required.")
     private String lastName;
 
