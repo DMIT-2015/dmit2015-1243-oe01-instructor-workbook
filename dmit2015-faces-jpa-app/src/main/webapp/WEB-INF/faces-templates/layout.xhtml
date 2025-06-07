@@ -44,23 +44,6 @@
                     <!-- https://www.primefaces.org/showcase/icons.xhtml?jfwid=a2b2f -->
                     <p:menuitem value="Home" icon="pi pi-home" url="#{request.contextPath}/index.xhtml"/>
 
-                    <p:menuitem value="Student CRUD"
-                                url="#{request.contextPath}/student/crud.xhtml"/>
-
-                    <p:menuitem value="Weather CRUD"
-                                url="#{request.contextPath}/weatherforecast/crud.xhtml"/>
-
-                    <p:menuitem value="LibraryAccount CRUD"
-                                url="#{request.contextPath}/libraryaccount/crud.xhtml"/>
-
-                    <p:menuitem value="Hello World" url="#{request.contextPath}/helloWorld.xhtml"/>
-
-                    <p:menuitem value="WeatherForecast"
-                                url="#{request.contextPath}/demo/weather.xhtml"/>
-
-<!--                    <p:menuitem value="Sign In"-->
-<!--                                url="#{request.contextPath}/signIn.xhtml" />-->
-
                     <!--                <p:submenu label="Students" icon="pi pi-file">-->
                     <!--                    <p:menuitem value="List" icon="pi pi-list"-->
                     <!--                                url="#{request.contextPath}/students/index.xhtml"/>-->
@@ -68,16 +51,6 @@
                     <!--                                url="#{request.contextPath}/students/create.xhtml"/>-->
                     <!--                </p:submenu>-->
 
-                    <c:if test="${empty firebaseAuthSignInSession.username}">
-                        <p:menuitem
-                                value="Firebase Login"
-                                action="/firebaseAuthSignIn" />
-                    </c:if>
-                    <c:if test="${not empty firebaseAuthSignInSession.username}">
-                        <p:menuitem
-                                value="Logout #{firebaseAuthSignInSession.username}"
-                                action="#{facesLogout.submit}" />
-                    </c:if>
                 </p:menubar>
             </h:form>
         </div>
@@ -97,8 +70,8 @@
             <a href="https://eclipse-ee4j.github.io/jakartaee-tutorial" target="_blanks">Jakarta EE 10</a>
             web application is built using
             <a href="https://www.jetbrains.com/idea/" target="_blanks">IntelliJ IDEA</a>,
-            <a href="https://jakarta.ee/specifications/faces/4.0/jakarta-faces-4.0.html" target="_blanks">Jakarta
-                Faces</a>,
+            <a href="https://jakarta.ee/specifications/faces/4.0/jakarta-faces-4.0.html"
+               target="_blanks">Jakarta Faces</a>,
             <a href="https://omnifaces.org/" target="_blanks">OmniFaces</a>,
             <a href="https://www.primefaces.org/showcase" target="_blanks">PrimeFaces</a>,
             <a href="https://www.primefaces.org/primeflex/" target="_blanks">PrimeFlex</a>,
