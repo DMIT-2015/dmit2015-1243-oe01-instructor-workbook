@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian  https://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+    <engine>
+        <property name="deploymentExportPath">target/</property>
+    </engine>
+
+    <container qualifier="wildfly-managed" default="true">
+        <configuration>
+            <property name="jbossHome">/home/user2015/jdk/server/wildfly-36.0.0.Final</property>
+            <!-- To attach a remote debugger to Arquillian from IntelliJ IDEA
+             1. Uncomment the javaVmArguments property below
+             2. Set a breakpoint in your source code
+             3. Run the test method and when you see the message "Listening for transport dt_socket at address: 8787" on the output area
+                 1. From the main menu, choose `Run | Attach to Process`
+                 2. IntelliJ IDEA will show the list of running local processes. Select the process with the `jboss-modules.jar (8787)` name to attach to.
+             4. The Debug window will open a when breakpoint is reached
+            -->
+            <!--            <property name="javaVmArguments">-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y</property>-->
+        </configuration>
+    </container>
+
+    <container qualifier="wildfly-remote" default="false">
+        <configuration>
+            <property name="managementAddress">127.0.0.1</property>
+            <property name="managementPort">9990</property>
+            <property name="managementProtocol">remote+http</property>
+            <property name="username">user2015</property>
+            <property name="password">Password2015</property>
+        </configuration>
+    </container>
+
+    <container qualifier="wildfly-bootable-jar" default="true">
+        <configuration>
+            <property name="jarFile">target/dmit2015-faces-jpa-app-bootable.jar</property>
+<!--            <property name="allowConnectingToRunningServer">false</property>-->
+<!--            <property name="managementAddress">127.0.0.1</property>-->
+<!--            <property name="managementPort">9990</property>-->
+<!--            <property name="waitForPorts">9990</property>-->
+<!--            <property name="waitForPortsTimeoutInSeconds">8</property>-->
+        </configuration>
+    </container>
+</arquillian>

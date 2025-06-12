@@ -52,7 +52,7 @@ public class StudentInitializer {
 
             try {
                 var faker = new Faker();
-                for (int counter = 1; counter <= 10; counter++) {
+                for (int counter = 1; counter <= 100; counter++) {
                     Student currentStudent = Student.of(faker);
                     _studentService.createStudent(currentStudent);
                 }
