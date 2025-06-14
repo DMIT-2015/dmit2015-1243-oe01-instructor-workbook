@@ -13,16 +13,15 @@ public class SeleniumWebDriverHtmlFormDemo01 {
         // Set up the WebDriver for Chrome
 //        WebDriverManager.chromedriver().setup();
 //        WebDriver driver = new ChromeDriver();
-
         WebDriverManager.firefoxdriver().setup();
         WebDriver driver = new FirefoxDriver();
 
         driver.manage().window().maximize();
 
-        // Navigate to a specific URL
+        // Navigate to the specific URL
         driver.get("https://www.w3schools.com/html/html_forms.asp");
 
-        // Find the First name text field
+        // Find the text field elements for first name and last name
         WebElement firstNameField = driver.findElement(By.id("fname"));
         // Clear the text in the First Name field
         firstNameField.clear();
@@ -41,7 +40,7 @@ public class SeleniumWebDriverHtmlFormDemo01 {
         submitButton.click();
         Thread.sleep(3000);
 
-        // Close browser
+        // Close the browser
         driver.quit();
     }
 }

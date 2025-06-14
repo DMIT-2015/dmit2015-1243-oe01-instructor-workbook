@@ -1,5 +1,6 @@
 package dmit2015.faces;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,7 +36,7 @@ public class StudentCrudPageSeleniumIT {
         // Use the command `~/Downloads/selenium-manager-linux --browser firefox` to download the webdriver for Firefox browser
         // Uncomment statement below to specify the location of the webdriver file.
         // System.setProperty("webdriver.chrome.driver", "/home/user2015/.cache/selenium/chromedriver/linux64/132.0.6834.159/chromedriver");
-        System.setProperty("webdriver.gecko.driver", "/snap/bin/geckodriver");
+//        System.setProperty("webdriver.gecko.driver", "/snap/bin/geckodriver");
 
         // WebDriverManager
         //     .chromedriver()
@@ -45,6 +47,7 @@ public class StudentCrudPageSeleniumIT {
         // chromeOptions.addArguments("--remote-allow-origins=*");
         // driver = new ChromeDriver(chromeOptions);
 
+        WebDriverManager.firefoxdriver().setup();
         driver = new FirefoxDriver();
 
         js = (JavascriptExecutor) driver;
@@ -108,7 +111,27 @@ public class StudentCrudPageSeleniumIT {
     private WebElement findRowIndex(String idValue) {
         // Check each page in the dataTable for a row that contains the idValue until found or the last page is checked.
         // Find the total number of pages in the table paginator
-        int totalPages = driver.findElements(By.className("ui-paginator-page")).size();
+//        int totalPages = driver.findElements(By.className("ui-paginator-page")).size();
+
+        // Check each paginator page in the dataTable for a row that contains the idValue until found or the last page is checked.
+        // To find the total number of pages in the table paginator we need to:
+        // 1) Find the last page link that is identified with an element attribute of `aria-label="Last Page"`
+        // 2) Check if the last page link is enabled by checking if the element attribute tabindex is not "-1"
+        // 3) Click on the last page link if it is enabled.
+        // 4) The last page number is the last element value in the collection of elements with the css class `ui-paginator-page`
+        // 5) Go back to the first page by finding then and clicking on the first page link
+        int totalPages = 1;
+        WebElement lastPageLink = driver.findElement(By.cssSelector("[aria-label=\"Last Page\"]"));
+        if (!Objects.equals(lastPageLink.getDomAttribute("tabindex"), "-1")) {
+            lastPageLink.click();
+            List<WebElement> pages = driver.findElements(By.className("ui-paginator-page"));
+            totalPages = Integer.parseInt(pages.getLast().getText());
+            WebElement firstPageLink = driver.findElement(By.cssSelector("[aria-label=\"First Page\"]"));
+            firstPageLink.click();
+        } else {
+            totalPages = driver.findElements(By.className("ui-paginator-page")).size();
+        }
+
         // Set the current page to 1 of the paginator
         int currentPage = 1;
         // Check each page of the dataTable
