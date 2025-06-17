@@ -8,9 +8,24 @@ import jakarta.persistence.Persistence;
 import net.datafaker.Faker;
 
 /**
- * This program generates data for a JPA entity for a persistence unit name
- * defined in `persistence.xml` with a RESOURCE_LOCAL transaction type.
- * <p>
+ * To generate and persist fake data to your database using this JakartaPersistenceDatabaseGenerator program:
+ * 1.   Configure persistence.xml: Create a persistence.xml file in your project's src/main/resources/META-INF directory.
+ *      This file must define a persistence unit that specifies the connection details for your database
+ *      (e.g., JDBC URL, username, password, driver class).
+ * 2.   Create JPA Entity Classes: Ensure you have created your JPA entity classes with the appropriate annotations.
+ * 3.   Implement Data Generation Logic: Open the JakartaPersistenceDatabaseGenerator.java class
+ *      and complete the generateData() method.
+ *      Within this method, you are responsible for:
+ *      - Determining the number of records to generate.
+ *      - Creating the fake data for each record.
+ *      - Creating new instances of your JPA entity classes.
+ *      - Setting the properties of the entity instances using the generated fake data.
+ *      - Persisting the entity instances to the database by calling the persist() method of the EntityManager.
+ * 4.   Specify Persistence Unit Name (Optional): If you want to use a persistence unit other than the default,
+ *      provide the persistence unit name as a command-line argument when running the program.
+ * 5.   Run the program: java JakartaPersistenceDatabaseGenerator [persistenceUnitName]
+ *
+ * This program requires a RESOURCE_LOCAL transaction type in `persistence.xml`.
  * The following is an example of a RESOURCE_LOCAL persistence unit:
  *
  * <pre>{@code
@@ -72,6 +87,14 @@ public class JakartaPersistenceDataGenerator {
     }
 
     public static void generateData(EntityManager em) {
+         /* TODO: Write your own code to implement data generation logic.
+        You are responsible for:
+            - Determining the number of records to generate.
+            - Creating the fake data for each record.
+            - Creating new instances of your JPA entity classes.
+            - Setting the properties of the entity instances using the generated fake data.
+            - Persisting the entity instances to the database by calling the persist() method of the EntityManager.
+        */
         var faker = new Faker();
         for (int i = 0; i < 10; i++) {
             VideoGame videoGame = new VideoGame();

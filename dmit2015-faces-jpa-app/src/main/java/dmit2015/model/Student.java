@@ -2,6 +2,7 @@ package dmit2015.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import net.datafaker.Faker;
@@ -38,6 +39,7 @@ public class Student implements Serializable {
     private Long id;
 
     @NotBlank(message = "First name is required.")
+    @Size(min = 3, max = 15, message = "First name must be between 3 and 15 characters.")
     private String firstName;
     @NotBlank(message = "Last name is required.")
     private String lastName;
