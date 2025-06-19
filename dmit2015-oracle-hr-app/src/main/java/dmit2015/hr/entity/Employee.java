@@ -18,6 +18,11 @@ import java.util.Set;
 @Entity
 @Table(name = "EMPLOYEES")
 public class Employee {
+
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
+    }
+
     @Id
     @Column(name = "EMPLOYEE_ID", nullable = false)
     private Integer id;
