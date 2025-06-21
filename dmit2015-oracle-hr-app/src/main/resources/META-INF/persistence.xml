@@ -13,14 +13,14 @@
         </properties>
     </persistence-unit>
 
-<!--    <persistence-unit name="oracle-jpa-co-pu" transaction-type="JTA">-->
-<!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
-<!--        <jta-data-source>java:app/datasources/OracleCoDS</jta-data-source>-->
+    <persistence-unit name="oracle-jpa-co-pu" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:app/datasources/OracleCoDS</jta-data-source>
 
-<!--        <properties>-->
-<!--            <property name="hibernate.type.preferred_instant_jdbc_type" value="TIMESTAMP"/>-->
-<!--        </properties>-->
-<!--    </persistence-unit>-->
+        <properties>
+            <property name="hibernate.type.preferred_instant_jdbc_type" value="TIMESTAMP"/>
+        </properties>
+    </persistence-unit>
 
 
 </persistence>
