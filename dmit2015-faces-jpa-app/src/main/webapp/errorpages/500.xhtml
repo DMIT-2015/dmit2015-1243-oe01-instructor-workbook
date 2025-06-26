@@ -1,0 +1,34 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html"
+        template="/WEB-INF/faces-templates/layout.xhtml">
+
+    <ui:param name="title" value="Internal Server Error"/>
+
+    <ui:define name="maincontent">
+        <f:metadata>
+            <f:viewParam name="fromErrorPage"/>
+        </f:metadata>
+
+        <ui:fragment rendered="#{empty param.fromErrorPage}">
+            <h1>Direct URL Access Not Allowed</h1>
+            <h2>This error page is not designed to be accessed directly.</h2>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{not empty param.fromErrorPage}">
+            <h1>HTTP Error 500 - Internal Server Error</h1>
+            <h2>Oops!</h2>
+
+            <p>Unfortunately, an unexpected problem has occurred during processing of your request. </p>
+
+            <p>You can try going back to <a
+                    href="#{requestScope['jakarta.servlet.error.request_uri']}"> the same page</a>,
+                or you can restart at <h:link outcome="/index">the home page</h:link>
+            </p>
+        </ui:fragment>
+
+    </ui:define>
+
+</ui:composition>

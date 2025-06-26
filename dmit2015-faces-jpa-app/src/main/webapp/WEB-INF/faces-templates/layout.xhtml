@@ -51,6 +51,15 @@
 <!--                                    url="#{request.contextPath}/students/create.xhtml"/>-->
                     </p:submenu>
 
+                    <c:if test="${not empty request.userPrincipal}">
+                        <p:menuitem value="Logout #{request.userPrincipal.name}"
+                                    action="#{oidcLogout.submit}" />
+                    </c:if>
+
+                    <c:if test="${empty request.userPrincipal}">
+                        <p:menuitem value="Login" outcome="/student/crud.xhtml" />
+                    </c:if>
+
                 </p:menubar>
             </h:form>
         </div>

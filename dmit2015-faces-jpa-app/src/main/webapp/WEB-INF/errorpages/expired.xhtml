@@ -1,0 +1,23 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="jakarta.faces.facelets"
+        xmlns:h="jakarta.faces.html"
+        template="/WEB-INF/faces-templates/layout.xhtml"
+>
+
+    <ui:param name="title" value="Internal Server Error"/>
+
+    <ui:define name="maincontent">
+        <h2>Session Expired</h2>
+        <p>
+            Sorry, your session has expired.
+            This can happen when you have been inactive too long, or when you have been logged out.
+        </p>
+        <p>
+            You can try going back to <a href="#{requestScope['jakarta.servlet.error.request_uri']}">the same page</a>,
+            or you can restart at <h:outputLink outcome="/index">the home page</h:outputLink>.
+        </p>
+
+    </ui:define>
+
+</ui:composition>

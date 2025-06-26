@@ -295,7 +295,7 @@
                     <debugSuspend>false</debugSuspend>
 
                     <scripts>
-                        <script>./wildfly-scripts/configure-electron.cli</script>
+                        <script>./wildfly-scripts/configure-elytron.cli</script>
                     </scripts>
 
                     <startup-timeout>180</startup-timeout>
