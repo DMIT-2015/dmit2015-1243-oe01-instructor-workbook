@@ -42,7 +42,7 @@ public class EmployeeQueryView implements Serializable {
 
     public void onSearchByDepartment() {
         try {
-            queryResults = _employeeRepository.employeesByDepartmentId(selectedDepartment.getId());
+            queryResults = _employeeRepository.EmployeesByDepartmentId(selectedDepartment.getId());
             Messages.addGlobalInfo("Query returned {0} results.", queryResults.size());
         } catch (Exception ex) {
             handleException(ex);

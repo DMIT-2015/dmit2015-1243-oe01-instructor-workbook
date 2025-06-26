@@ -294,6 +294,10 @@
                     <debugPort>8787</debugPort>
                     <debugSuspend>false</debugSuspend>
 
+                    <scripts>
+                        <script>./wildfly-scripts/configure-electron.cli</script>
+                    </scripts>
+
                     <startup-timeout>180</startup-timeout>
 
                     <bootable-jar>true</bootable-jar>
