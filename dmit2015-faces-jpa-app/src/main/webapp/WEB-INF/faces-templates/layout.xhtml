@@ -49,6 +49,8 @@
                                     url="#{request.contextPath}/student/crud.xhtml"/>
 <!--                        <p:menuitem value="Create" icon="pi pi-plus"-->
 <!--                                    url="#{request.contextPath}/students/create.xhtml"/>-->
+                        <p:menuitem value="Unprotected CRUD" icon="pi pi-list"
+                                    url="#{request.contextPath}/unprotected/student/crud.xhtml"/>
                     </p:submenu>
 
                     <c:if test="${not empty request.userPrincipal}">

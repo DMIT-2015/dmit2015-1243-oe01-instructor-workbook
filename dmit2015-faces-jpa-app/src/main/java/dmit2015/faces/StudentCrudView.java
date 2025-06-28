@@ -52,12 +52,14 @@ public class StudentCrudView implements Serializable {
      *       <f:event type="postInvokeAction" listener="#{currentBeanView.init}" />
      *   </f:metadata>
      */
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         try {
             students = studentService.getAllStudents();
+        } catch(RuntimeException e) {
+            Messages.addGlobalWarn(e.getMessage());
         } catch (Exception e) {
-            Messages.addGlobalError("Error getting students %s", e.getMessage());
+            Messages.addGlobalError("Error getting students {0}", e.getMessage());
         }
     }
 

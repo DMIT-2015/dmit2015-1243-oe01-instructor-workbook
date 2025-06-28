@@ -41,28 +41,29 @@ public class StudentInitializer {
     public void initialize(@Observes @Initialized(ApplicationScoped.class) Object event) {
         _logger.info("Initializing students");
 
-        if (_studentService.getAllStudents().isEmpty()) {
-            /* You have three options for creating the test data:
-                Option 1) Hard code the test data when testing a small dataset.
-                Option 2) Read the test data from a text file when testing a large dataset.
-                Option 3) Generate the test data using DataFaker.
-                          When used with Integration Testing you will need to save the generated data
-                          to a file that can be read later to compare with expected values.
-             */
-
-            try {
-                var faker = new Faker();
-                for (int counter = 1; counter <= 10; counter++) {
-                    Student currentStudent = Student.of(faker);
-                    _studentService.createStudent(currentStudent);
-                }
-
-
-            } catch (Exception ex) {
-                _logger.warning(ex.getMessage());
-            }
-
-            _logger.info("Created " + _studentService.getAllStudents().size() + " records.");
-        }
+//        if (_studentService.getAllStudents().isEmpty()) {
+//            /* You have three options for creating the test data:
+//                Option 1) Hard code the test data when testing a small dataset.
+//                Option 2) Read the test data from a text file when testing a large dataset.
+//                Option 3) Generate the test data using DataFaker.
+//                          When used with Integration Testing you will need to save the generated data
+//                          to a file that can be read later to compare with expected values.
+//             */
+//
+//            try {
+//                var faker = new Faker();
+//                for (int counter = 1; counter <= 10; counter++) {
+//                    Student currentStudent = Student.of(faker);
+//                    currentStudent.setUsername("DLEE");
+//                    _studentService.createStudent(currentStudent);
+//                }
+//
+//
+//            } catch (Exception ex) {
+//                _logger.warning(ex.getMessage());
+//            }
+//
+//            _logger.info("Created " + _studentService.getAllStudents().size() + " records.");
+//        }
     }
 }
