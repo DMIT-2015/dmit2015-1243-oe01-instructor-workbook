@@ -1,0 +1,43 @@
+### Get all TodoItemsDto
+GET http://localhost:8090/restapi/TodoItemsDto
+
+### Get a single TodoItem with an id of 1
+GET http://localhost:8090/restapi/TodoItemsDto/1
+
+### POST a new TodoItem with valid data
+POST http://localhost:8090/restapi/TodoItemsDto
+Content-Type: application/json
+
+{
+  "name": "Start DMIT2015 Assignment 6",
+  "complete": false
+}
+
+### Post a new TodoItem with invalid data
+POST http://localhost:8090/restapi/TodoItemsDto
+Content-Type: application/json
+
+{
+  "name": "     ",
+  "complete": false
+}
+
+### Get a single TodoItem with an id of 4
+GET http://localhost:8090/restapi/TodoItemsDto/4
+
+### Update TodoItem with an id of 4 with valid data
+PUT http://localhost:8090/restapi/TodoItemsDto/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "Commit and push DMIT2015 Assignment 6",
+  "complete": true,
+  "version": 1
+}
+
+### Delete an TodoItem with an id of 2
+DELETE http://localhost:8090/restapi/TodoItemsDto/2
+
+### Delete an TodoItem with an id of 4
+DELETE http://localhost:8090/restapi/TodoItemsDto/4
