@@ -5,11 +5,14 @@ import dmit2015.entity.Student;
 import dmit2015.dto.StudentDto;
 import dmit2015.mapper.StudentMapper;
 import dmit2015.repository.StudentRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.OptimisticLockException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import net.datafaker.providers.base.Marketing;
 
 import java.net.URI;
 import java.util.stream.Collectors;
@@ -18,7 +21,7 @@ import java.util.stream.Collectors;
  * This Jakarta RESTful Web Services root resource class provides common REST API endpoints to
  * perform CRUD operations on the DTO (Data Transfer Object) for a Jakarta Persistence entity.
  */
-@ApplicationScoped
+@RequestScoped
 @Path("StudentDtos")                // All methods in this class are associated this URL path
 @Consumes(MediaType.APPLICATION_JSON)
 // All methods in this class expects method parameters to contain data in JSON format
@@ -39,6 +42,7 @@ public class StudentDtoResource {
         ).build();
     }
 
+    @RolesAllowed("**")
     @Path("{id}")
     @GET    // This method only accepts HTTP GET requests.
     public Response findStudentByIdStudentById(@PathParam("id") Long id) {
