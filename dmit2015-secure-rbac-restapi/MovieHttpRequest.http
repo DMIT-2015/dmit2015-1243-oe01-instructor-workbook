@@ -1,0 +1,36 @@
+### Create a new entity
+POST http://localhost:8090/restapi/movies
+Content-Type: application/json
+
+{
+  "propertyName1": "property1Value",
+  "propertyName2": "property2Value",
+  "propertyName2": "property2Value"
+}
+
+### GET All entity from REST API endpoint
+GET http://localhost:8090/restapi/movies
+
+### GET One entity from REST API endpoint
+GET http://localhost:8090/restapi/movies/primaryKeyValue
+
+### UPDATE entity at the REST API endpoint - will replace all properties with the properties in the request body
+PUT http://localhost:8090/restapi/movies/primaryKeyValue
+Content-Type: application/json
+
+{
+  "propertyName1": "property1Value",
+  "propertyName2": "property2Value",
+  "propertyName3": "property3Value"
+}
+
+### DELETE entity at the REST API endpoint
+DELETE http://localhost:8090/restapi/movies/primaryKeyValue
+
+### Update specific properties of the entity at the REST API endpoint
+PATCH http://localhost:8090/restapi/movies/primaryKeyValue
+Content-Type: application/json
+
+{
+  "propertyName": "propertyValue"
+}

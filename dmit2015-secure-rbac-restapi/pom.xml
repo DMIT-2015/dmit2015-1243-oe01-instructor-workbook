@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dmit2015</groupId>
-    <artifactId>dmit2015-restapi</artifactId>
+    <artifactId>dmit2015-secure-rbac-restapi</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>dmit2015-restapi</name>
     <packaging>war</packaging>
