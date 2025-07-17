@@ -13,20 +13,33 @@ import jakarta.persistence.OptimisticLockException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import net.datafaker.providers.base.Marketing;
+import org.eclipse.microprofile.jwt.Claim;
+import org.eclipse.microprofile.jwt.ClaimValue;
+import org.eclipse.microprofile.jwt.Claims;
 
 import java.net.URI;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * This Jakarta RESTful Web Services root resource class provides common REST API endpoints to
  * perform CRUD operations on the DTO (Data Transfer Object) for a Jakarta Persistence entity.
  */
-@RequestScoped
+@ApplicationScoped
 @Path("StudentDtos")                // All methods in this class are associated this URL path
 @Consumes(MediaType.APPLICATION_JSON)
 // All methods in this class expects method parameters to contain data in JSON format
 @Produces(MediaType.APPLICATION_JSON)    // All methods in this class returns data in JSON format
 public class StudentDtoResource {
+
+    @Inject
+    @Claim(standard = Claims.upn)   // The username for the user.
+    private ClaimValue<Optional<String>> optionalUsername;
+
+    @Inject
+    @Claim(standard = Claims.groups)    // The roles that the subject is a member of.
+    private ClaimValue<Optional<Set<String>>> optionalGroups;
 
     @Inject
     private StudentRepository _studentRepository;
@@ -42,10 +55,14 @@ public class StudentDtoResource {
         ).build();
     }
 
-    @RolesAllowed("**")
+    @RolesAllowed("Marketing")
     @Path("{id}")
     @GET    // This method only accepts HTTP GET requests.
     public Response findStudentByIdStudentById(@PathParam("id") Long id) {
+        String username = optionalUsername.getValue().orElseThrow();
+        Set<String> groups  = optionalGroups.getValue().orElseThrow();
+        System.out.printf("username: %s\ngroups:%s\n", username, groups);
+
         Student existingStudent = _studentRepository.findById(id).orElseThrow(NotFoundException::new);
 
         StudentDto dto = StudentMapper.INSTANCE.toDto(existingStudent);
