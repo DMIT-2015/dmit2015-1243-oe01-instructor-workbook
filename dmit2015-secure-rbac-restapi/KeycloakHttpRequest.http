@@ -6,7 +6,7 @@
 ### Token Request Endpoint
 @keycloakserver = http://localhost:8180
 @realm = dmit2015-realm
-@user1_username = cmcdavid
+@user1_username = pdavis
 @user1_password = Password2015
 @jwtClient = dmit2015-jwt-client
 @jwtClientSecret = DlsK6a0fYku6oO2gKDJS3ZfAtOH6mBFo

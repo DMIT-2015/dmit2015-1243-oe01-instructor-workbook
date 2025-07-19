@@ -55,7 +55,7 @@ public class StudentDtoResource {
         ).build();
     }
 
-    @RolesAllowed("Marketing")
+//    @RolesAllowed({"Marketing","Sales"})
     @Path("{id}")
     @GET    // This method only accepts HTTP GET requests.
     public Response findStudentByIdStudentById(@PathParam("id") Long id) {
@@ -70,6 +70,7 @@ public class StudentDtoResource {
         return Response.ok(dto).build();
     }
 
+    @RolesAllowed("HockeyPlayer")
     @POST    // This method only accepts HTTP POST requests.
     public Response createStudentStudent(StudentDto dto, @Context UriInfo uriInfo) {
         Student newStudent = StudentMapper.INSTANCE.toEntity(dto);

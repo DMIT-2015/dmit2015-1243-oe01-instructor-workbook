@@ -60,7 +60,7 @@ public class StudentCrudView implements Serializable {
      * <f:event type="postInvokeAction" listener="#{currentBeanView.init}" />
      * </f:metadata>
      */
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         try {
             students = studentService.getAllStudents();

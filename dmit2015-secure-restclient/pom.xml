@@ -27,6 +27,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>9.0.1.Final</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.38</version>
@@ -226,6 +232,7 @@
                         <layer>jsf</layer>
                         <layer>microprofile-config</layer>
                         <layer>microprofile-rest-client</layer>
+                        <layer>microprofile-jwt</layer>
                     </layers>
 
                     <!-- deploys the app on root web context -->

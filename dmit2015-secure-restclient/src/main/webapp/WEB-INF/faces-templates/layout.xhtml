@@ -55,6 +55,17 @@
                     <!--                                url="#{request.contextPath}/students/create.xhtml"/>-->
                     <!--                </p:submenu>-->
 
+                    <c:if test="${empty loginSession.username}">
+                        <p:menuitem
+                                value="Login"
+                                action="/login" />
+                    </c:if>
+                    <c:if test="${not empty loginSession.username}">
+                        <p:menuitem
+                                value="Logout #{loginSession.username}"
+                                action="#{keycloakLogout.submit}" />
+                    </c:if>
+
                 </p:menubar>
             </h:form>
         </div>

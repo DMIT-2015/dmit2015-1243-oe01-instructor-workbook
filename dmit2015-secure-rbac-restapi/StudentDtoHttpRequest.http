@@ -1,4 +1,4 @@
-### Create a new entity
+### Create a new entity without JWT
 POST http://localhost:8090/restapi/StudentDtos
 Content-Type: application/json
 
@@ -8,16 +8,38 @@ Content-Type: application/json
   "courseSection": "DMIT2015-OE01"
 }
 
+### Create a new entity with JWT
+@hockeyPlayerToken = replace-with-real-token
+POST http://localhost:8090/restapi/StudentDtos
+Content-Type: application/json
+Authorization: Bearer {{hockeyPlayerToken}}
+
+{
+  "firstName": "Alex",
+  "lastName": "Knibb",
+  "courseSection": "DMIT2015-OE01"
+}
+
+
 ### GET All entity from REST API endpoint
 GET http://localhost:8090/restapi/StudentDtos
 
-### GET One entity from REST API endpoint with Marketing role
+### GET One entity from REST API endpoint without JWT
+GET http://localhost:8090/restapi/StudentDtos/2
+
+### GET One entity from REST API endpoint with invalid JWT
+GET http://localhost:8090/restapi/StudentDtos/2
+Authorization: Bearer ey.dfdsfsd.ccm
+
+### GET One entity from REST API endpoint with JWT without required role
+GET http://localhost:8090/restapi/StudentDtos/2
+Authorization: Bearer tokenWithoutRequiredRole
+
+
+### GET One entity from REST API endpoint with JWT with required role
+@MarketingRoleAccessToken = token
 GET http://localhost:8090/restapi/StudentDtos/2
 Authorization: Bearer {{MarketingRoleAccessToken}}
-
-### GET One entity from REST API endpoint with HockeyPlayer role
-GET http://localhost:8090/restapi/StudentDtos/2
-Authorization: Bearer {{HockeyPlayerRoleAccessToken}}
 
 
 ### UPDATE entity at the REST API endpoint - will replace all properties with the properties in the request body

@@ -3,11 +3,15 @@ package dmit2015.restclient;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
+import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import java.util.List;
 
 @RequestScoped
+@RegisterClientHeaders(AuthHeaderFactory.class)
+@RegisterProvider(ForbiddenResponseMapper.class)
 @RegisterRestClient(baseUri = "http://localhost:8090/restapi/StudentDtos")
 public interface StudentMpRestClient {
 
