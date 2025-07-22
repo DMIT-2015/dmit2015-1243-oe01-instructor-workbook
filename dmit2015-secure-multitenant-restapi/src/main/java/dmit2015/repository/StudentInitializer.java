@@ -40,6 +40,7 @@ public class StudentInitializer {
                 var faker = new Faker();
                 for (int count = 1; count <= 10; count++) {
                     var currentStudent = Student.of(faker);
+                    currentStudent.setUsername("JKING");
                     _studentRepository.add(currentStudent);
                 }
 

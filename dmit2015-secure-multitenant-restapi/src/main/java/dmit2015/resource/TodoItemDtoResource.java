@@ -5,6 +5,7 @@ import dmit2015.dto.TodoItemDto;
 import dmit2015.mapper.TodoItemMapper;
 import dmit2015.entity.TodoItem;
 import dmit2015.repository.TodoItemRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.OptimisticLockException;
@@ -12,6 +13,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
+import org.eclipse.microprofile.jwt.Claim;
+import org.eclipse.microprofile.jwt.ClaimValue;
+import org.eclipse.microprofile.jwt.Claims;
 
 import java.net.URI;
 import java.util.Optional;
@@ -39,11 +43,16 @@ import java.util.stream.Collectors;
  */
 
 @ApplicationScoped
+@RolesAllowed("Sales")
 // This is a CDI-managed bean that is created only once during the life cycle of the application
 @Path("TodoItemsDto")	        // All methods of this class are associated this URL path
 @Consumes(MediaType.APPLICATION_JSON)	// All methods this class accept only JSON format data
 @Produces(MediaType.APPLICATION_JSON)	// All methods returns data that has been converted to JSON format
 public class TodoItemDtoResource {
+
+    @Inject
+    @Claim(standard = Claims.upn)
+    private ClaimValue<Optional<String>> optionalUsername;
 
     @Inject
     private UriInfo uriInfo;
@@ -64,6 +73,8 @@ public class TodoItemDtoResource {
 
 //        TodoItem newTodoItem = mapFromDto(dto);
         TodoItem newTodoItem = TodoItemMapper.INSTANCE.toEntity(dto);
+        String username = optionalUsername.getValue().orElseThrow();
+        newTodoItem.setUsername(username);
         todoItemRepository.add(newTodoItem);
 
         URI todoItemsUri = uriInfo.getAbsolutePathBuilder().path(newTodoItem.getId().toString()).build();
@@ -80,6 +91,11 @@ public class TodoItemDtoResource {
         }
         TodoItem existingTodoItem = optionalTodoItem.get();
 //        TodoItemDto dto = mapToDto(existingTodoItem);
+        String username = optionalUsername.getValue().orElseThrow();
+        if (!existingTodoItem.getUsername().equals(username)) {
+            throw new BadRequestException("You are not allowed to access a resource owned by another user.");
+        }
+
         TodoItemDto dto = TodoItemMapper.INSTANCE.toDto(existingTodoItem);
 
         return Response.ok(dto).build();
@@ -87,7 +103,8 @@ public class TodoItemDtoResource {
 
     @GET    // GET: restapi/TodoItemsDto
     public Response getTodoItems() {
-        return Response.ok(todoItemRepository.findAll()
+        String username = optionalUsername.getValue().orElseThrow();
+        return Response.ok(todoItemRepository.findAllByUsername(username)
                 .stream()
 //                .map(this::mapToDto)
                 .map(TodoItemMapper.INSTANCE::toDto)
@@ -113,6 +130,12 @@ public class TodoItemDtoResource {
         }
 
         TodoItem existingTodoItem = optionalTodoItem.orElseThrow();
+
+        String username = optionalUsername.getValue().orElseThrow();
+        if (!existingTodoItem.getUsername().equals(username)) {
+            throw new BadRequestException("You are not allowed to access a resource owned by another user.");
+        }
+
         // Copy data from the updated entity to the existing entity
         existingTodoItem.setVersion(dto.getVersion());
         existingTodoItem.setTask(dto.getName());
@@ -145,6 +168,11 @@ public class TodoItemDtoResource {
             throw new NotFoundException();
         }
 
+        String username = optionalUsername.getValue().orElseThrow();
+        TodoItem existingTodoItem = optionalTodoItem.orElseThrow();
+        if (!existingTodoItem.getUsername().equals(username)) {
+            throw new BadRequestException("You are not allowed to access a resource owned by another user.");
+        }
         todoItemRepository.deleteById(id);
 
         return Response.noContent().build();

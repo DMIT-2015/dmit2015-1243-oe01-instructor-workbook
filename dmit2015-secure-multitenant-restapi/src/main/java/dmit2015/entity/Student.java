@@ -34,6 +34,9 @@ public class Student implements Serializable {
     @Column(name = "studentid", nullable = false)
     private Long id;
 
+    @Column(length = 32, nullable = false)
+    private String username;
+
     @NotBlank(message = "First name is required.")
     private String firstName;
 

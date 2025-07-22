@@ -48,6 +48,13 @@ public class StudentRepository {
                 .getResultList();
     }
 
+    public List<Student> findByUsername(String username) {
+        return _entityManager.createQuery(
+                "SELECT s FROM Student s WHERE s.username = :usernameValue", Student.class)
+                .setParameter("usernameValue", username)
+                .getResultList();
+    }
+
     @Transactional
     public Student update(@Valid Student updatedStudent) {
         Long id = updatedStudent.getId();

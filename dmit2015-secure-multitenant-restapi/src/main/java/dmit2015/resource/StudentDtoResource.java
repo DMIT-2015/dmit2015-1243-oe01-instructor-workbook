@@ -5,13 +5,18 @@ import dmit2015.entity.Student;
 import dmit2015.dto.StudentDto;
 import dmit2015.mapper.StudentMapper;
 import dmit2015.repository.StudentRepository;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.OptimisticLockException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
+import org.eclipse.microprofile.jwt.Claim;
+import org.eclipse.microprofile.jwt.ClaimValue;
+import org.eclipse.microprofile.jwt.Claims;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -19,6 +24,7 @@ import java.util.stream.Collectors;
  * perform CRUD operations on the DTO (Data Transfer Object) for a Jakarta Persistence entity.
  */
 @ApplicationScoped
+@RolesAllowed("Sales")
 @Path("StudentDtos")                // All methods in this class are associated this URL path
 @Consumes(MediaType.APPLICATION_JSON)
 // All methods in this class expects method parameters to contain data in JSON format
@@ -26,13 +32,18 @@ import java.util.stream.Collectors;
 public class StudentDtoResource {
 
     @Inject
+    @Claim(standard = Claims.upn)
+    private ClaimValue<Optional<String>> optionalUsername;
+
+    @Inject
     private StudentRepository _studentRepository;
 
     @GET    // This method only accepts HTTP GET requests.
     public Response findAllStudentsStudents() {
+        String username = optionalUsername.getValue().orElseThrow();
         return Response.ok(
                 _studentRepository
-                        .findAll()
+                        .findByUsername(username)
                         .stream()
                         .map(StudentMapper.INSTANCE::toDto)
                         .collect(Collectors.toList())
@@ -43,6 +54,11 @@ public class StudentDtoResource {
     @GET    // This method only accepts HTTP GET requests.
     public Response findStudentByIdStudentById(@PathParam("id") Long id) {
         Student existingStudent = _studentRepository.findById(id).orElseThrow(NotFoundException::new);
+
+        String username = optionalUsername.getValue().orElseThrow();
+        if (!existingStudent.getUsername().equals(username)) {
+            throw new BadRequestException("You are not allowed to access a resource owned by another user.");
+        }
 
         StudentDto dto = StudentMapper.INSTANCE.toDto(existingStudent);
 
@@ -63,6 +79,8 @@ public class StudentDtoResource {
 
         try {
             // Persist the new Student into the database
+            String username = optionalUsername.getValue().orElseThrow();
+            newStudent.setUsername(username);
             _studentRepository.add(newStudent);
         } catch (Exception ex) {
             // Return a HTTP status of "500 Internal Server Error" containing the exception message
@@ -95,6 +113,11 @@ public class StudentDtoResource {
         Student existingStudent = _studentRepository
                 .findById(id)
                 .orElseThrow(NotFoundException::new);
+
+        String username = optionalUsername.getValue().orElseThrow();
+        if (!existingStudent.getUsername().equals(username)) {
+            throw new BadRequestException("You are not allowed to access a resource owned by another user.");
+        }
 
         Student updatedStudent = StudentMapper.INSTANCE.toEntity(dto);
 
@@ -138,6 +161,11 @@ public class StudentDtoResource {
         Student existingStudent = _studentRepository
                 .findById(id)
                 .orElseThrow(NotFoundException::new);
+
+        String username = optionalUsername.getValue().orElseThrow();
+        if (!existingStudent.getUsername().equals(username)) {
+            throw new BadRequestException("You are not allowed to access a resource owned by another user.");
+        }
 
         try {
             _studentRepository.delete(existingStudent);    // Removes the Student from being persisted
