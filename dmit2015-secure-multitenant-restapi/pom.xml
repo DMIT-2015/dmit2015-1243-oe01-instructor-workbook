@@ -233,9 +233,9 @@
                     <name>ROOT.war</name>
 
                     <server-args>
-                        <server-arg>-Djboss.socket.binding.port-offset=10</server-arg>
+                        <server-arg>-Djboss.socket.binding.port-offset=11</server-arg>
                     </server-args>
-                    <port>10000</port>
+                    <port>10001</port>
 
                     <!-- Enable debugging -->
                     <!-- https://www.jetbrains.com/help/idea/attaching-to-local-process.html#attach-to-local -->
@@ -245,7 +245,7 @@
                             Select the process with the `jboss-module.jar (8797)` name to attach to.
                     -->
                     <debug>true</debug>
-                    <debugPort>8797</debugPort>
+                    <debugPort>8798</debugPort>
                     <debugSuspend>false</debugSuspend>
 
                     <bootableJar>true</bootableJar>
