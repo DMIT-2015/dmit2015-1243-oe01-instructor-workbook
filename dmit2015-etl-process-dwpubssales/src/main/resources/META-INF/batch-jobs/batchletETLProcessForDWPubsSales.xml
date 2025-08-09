@@ -5,7 +5,7 @@
 
     <listeners>
         <!-- Use a JobListener to delete all existing records and let the batchlet re-create all records.  -->
-        <!--        <listener ref="pubsETLTaskJobListener"/>-->
+        <listener ref="pubsEtlProcessJobListener" />
     </listeners>
 
     <step id="dropFKs" next="truncateTables">
