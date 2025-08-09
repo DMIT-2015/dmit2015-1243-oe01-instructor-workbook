@@ -1,0 +1,9 @@
+### Start a batch job
+# curl -i -X POST http://localhost:8080/restapi/batch-jobs/batchletETLProcessForDWPubsSales
+POST http://localhost:8080/restapi/batch-jobs/batchletETLProcessForDWPubsSales
+
+### Check the status of a batch job
+# curl -i -X GET http://localhost:8080/restapi/batch-jobs/1
+
+GET http://localhost:8080/restapi/batch-jobs/1
+

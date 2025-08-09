@@ -225,6 +225,7 @@
                     <name>ROOT.war</name>
 
                     <server-args>
+                        <server-arg>-b=0.0.0.0</server-arg>
                         <server-arg>-Djboss.socket.binding.port-offset=10</server-arg>
                     </server-args>
                     <port>10000</port>

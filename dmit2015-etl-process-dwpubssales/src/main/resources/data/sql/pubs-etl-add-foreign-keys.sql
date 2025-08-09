@@ -1,0 +1,7 @@
+Alter Table [dbo].[DimTitles] With Check Add Constraint [FK_DimTitles_DimPublishers] Foreign Key ([PublisherKey]) References [dbo].[DimPublishers] ([PublisherKey])
+Alter Table [dbo].[FactTitlesAuthors] With Check Add Constraint [FK_FactTitlesAuthors_DimAuthors] Foreign Key ([AuthorKey]) References [dbo].[DimAuthors] ([AuthorKey])
+Alter Table [dbo].[FactTitlesAuthors] With Check Add Constraint [FK_FactTitlesAuthors_DimTitles] Foreign Key ([TitleKey]) References [dbo].[DimTitles] ([TitleKey])
+Alter Table [dbo].[FactSales] With Check Add Constraint [FK_FactSales_DimStores] Foreign Key ([StoreKey]) References [dbo].[DimStores] ([Storekey])
+Alter Table [dbo].[FactSales] With Check Add Constraint [FK_FactSales_DimTitles] Foreign Key ([TitleKey]) References [dbo].[DimTitles] ([TitleKey])
+Alter Table [dbo].[FactSales]  With Check Add Constraint [FK_FactSales_DimDates] Foreign Key ([OrderDateKey]) References [dbo].[DimDates] ([DateKey])
+Alter Table [dbo].[DimTitles]  With Check Add Constraint [FK_DimTitles_DimDates] Foreign Key ([PublishedDateKey]) References [dbo].[DimDates] ([DateKey])

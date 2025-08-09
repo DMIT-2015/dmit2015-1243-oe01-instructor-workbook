@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="batchletPubsETLTask"
+     xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd" version="2.0">
+
+    <listeners>
+        <!-- Use a JobListener to delete all existing records and let the batchlet re-create all records.  -->
+        <!--        <listener ref="pubsETLTaskJobListener"/>-->
+    </listeners>
+
+    <step id="dropFKs" next="truncateTables">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-drop-foreign-keys.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="truncateTables" next="fillDimAuthors">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-truncate-tables.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillDimAuthors" next="fillDimStores">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-DimAuthors.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillDimStores" next="fillDimPublishers">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-DimStores.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillDimPublishers" next="fillDimDates">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-DimPublishers.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillDimDates" next="addNullDateLookupValues">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-DimDates.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="addNullDateLookupValues" next="fillDimTitles">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-add-null-date-lookup-values.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillDimTitles" next="fillFactTitleAuthors">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-DimTitles.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillFactTitleAuthors" next="fillFactSales">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-FactTitleAuthors.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="fillFactSales" next="addFKs">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-fill-FactSales.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+
+    <step id="addFKs">
+        <batchlet ref="executeMultiLineSQLStatementBatchlet">
+            <properties>
+                <property name="sql_script_file" value="/data/sql/pubs-etl-add-foreign-keys.sql"/>
+            </properties>
+        </batchlet>
+    </step>
+</job>

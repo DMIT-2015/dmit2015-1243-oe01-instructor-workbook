@@ -1,0 +1,7 @@
+Alter Table [dbo].[DimTitles] Drop Constraint [FK_DimTitles_DimPublishers]
+Alter Table [dbo].[FactTitlesAuthors] Drop Constraint [FK_FactTitlesAuthors_DimAuthors]
+Alter Table [dbo].[FactTitlesAuthors] Drop Constraint [FK_FactTitlesAuthors_DimTitles]
+Alter Table [dbo].[FactSales] Drop Constraint [FK_FactSales_DimStores]
+Alter Table [dbo].[FactSales] Drop Constraint [FK_FactSales_DimTitles]
+Alter Table [dbo].[FactSales] Drop Constraint [FK_FactSales_DimDates]
+Alter Table [dbo].[DimTitles] Drop Constraint [FK_DimTitles_DimDates]

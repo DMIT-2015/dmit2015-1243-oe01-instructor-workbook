@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-add-foreign-keys.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-add-null-date-lookup-values.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-drop-foreign-keys.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-DimAuthors.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-DimDates.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-DimPublishers.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-DimStores.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-DimTitles.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-FactSales.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-fill-FactTitleAuthors.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/data/sql/pubs-etl-truncate-tables.sql" dialect="GenericSQL" />
+  </component>
+</project>
